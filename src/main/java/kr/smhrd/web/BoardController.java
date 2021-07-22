@@ -36,5 +36,16 @@ public class BoardController{
 		boardMapper.boardInsert(vo);
 		return "redirect:/boardList.do";
 	}
+	@RequestMapping("/boardContent.do")
+	public String boardContent(int idx, Model model) {
+		BoardVO vo = boardMapper.boardContent(idx);
+		model.addAttribute("vo", vo);
+		return "boardContent";
+	}
+	@RequestMapping("/boardDelete.do")
+	public String boardDelete(int idx) {
+		boardMapper.boardDelete(idx);
+		return "redirect:/boardList.do";
+	}
 	
 }
