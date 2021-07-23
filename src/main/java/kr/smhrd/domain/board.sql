@@ -7,5 +7,5 @@ create table tbl_board(
    indate datetime not null default now(),
    primary key(idx)
 );
-`
+
 select * from tbl_board;
