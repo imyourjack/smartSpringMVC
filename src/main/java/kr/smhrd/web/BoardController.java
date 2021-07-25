@@ -54,6 +54,11 @@ public class BoardController{
 		boardMapper.boardDelete(idx);
 		return "redirect:/boardList.do";
 	}
+	@RequestMapping("/boardDeleteAjax.do")
+	public @ResponseBody int boardDeleteAjax(int idx) {
+		int cnt = boardMapper.boardDeleteAjax(idx);
+		return cnt;
+	}
 	//GET, POST
 	@RequestMapping(value="/boardUpdate.do", method=RequestMethod.POST)
 	public String boardUpdate(BoardVO vo) {

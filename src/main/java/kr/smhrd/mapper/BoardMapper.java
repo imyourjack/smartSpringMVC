@@ -2,6 +2,7 @@ package kr.smhrd.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -16,6 +17,7 @@ public interface BoardMapper {
 	@Select("select * from tbl_board order by idx desc")
 	public List<BoardVO> boardListAjax();
 	
+	
 	public void boardInsert(BoardVO vo); // insert SQL
 	
 	@Select("select * from tbl_board where idx = #{idx}")
@@ -23,7 +25,12 @@ public interface BoardMapper {
 	
 	public void boardDelete(int idx); // delete SQL
 	
+	@Delete("delete from tbl_board where idx=#{idx}")
+	public int boardDeleteAjax(int idx);
+	
 	@Update("update tbl_board set title = #{title}, contents = #{contents} where idx = #{idx}")
-	public void boardUpdate(BoardVO vo); // Update SQL
+	public void boardUpdate(BoardVO vo);
+	
+	
 	
 }

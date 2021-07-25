@@ -42,12 +42,26 @@
   			html+="<td>"+obj.count+"</td>";
   			html+="<td>"+obj.writer+"</td>";
   			html+="<td>"+obj.indate+"</td>";
+  			html+="<td><button class='btn btn-warning btn-sm' onclick='delBtn("+obj.idx+")'>삭제(Ajax)</button></td>";
   			html+="</tr>";
 		});
   		
   		html+="</table>";
   		$("#list").html(html);
 	}
+  	function delBtn(idx) {
+  		if(confirm("삭제하시겠습니까?")==true){
+  		$.ajax({ 
+  			url : "${cpath}/boardDeleteAjax.do",
+  			type : "get",
+  			data : {"idx": idx},
+  			success : goJson,
+  		    error : function() {alert("error");}
+  		});
+  	 }else{
+  		return false;
+  	 }
+  	}
   </script>
   
 </head>
