@@ -7,5 +7,8 @@ create table tbl_board(
    indate datetime not null default now(),
    primary key(idx)
 );
-`
+
+commit;
 select * from tbl_board;
+
+show databases;
