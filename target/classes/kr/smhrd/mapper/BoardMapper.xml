@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.smhrd.mapper.BoardMapper"> <!-- BoardMapper.java와  BoardMapper.xml이 연결되게하는 부분-->
     
-    <select id="boardList" resultType="kr.smhrd.domain.BoardVO">
+    <select id="boardList" resultType="boardVO">
         select * from tbl_board
     </select>
     
-     <insert id="boardInsert" parameterType="kr.smhrd.domain.BoardVO">
+     <insert id="boardInsert" parameterType="boardVO">
         insert into tbl_board(title,contents,writer) 
         values(#{title},#{contents},#{writer})
     </insert>

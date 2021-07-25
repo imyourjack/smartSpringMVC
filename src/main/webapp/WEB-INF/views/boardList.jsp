@@ -11,16 +11,61 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
   <script type="text/javascript">
   	function goWrite() {
 		location.href="${cpath}/boardForm.do";
 	}
+  	function goJson() {
+		$.ajax({
+			url : "${cpath}/boardListAjax.do",
+			type : "get",
+			datatype : "json",
+			success : resultHtml,
+			error : function () {alert("error");}	
+		});
+	}
+  	function resultHtml(data) { //data안에 [{},{}...]  --Array형태
+  		//alert(data);
+  		var html="<table class='table'>";
+  		html+="<tr>";	//동적으로 붙히기때문에 여기서부터는 +를 붙힘
+  		html+="<td>번호</td>";
+  		html+="<td>제목</td>";
+  		html+="<td>조회수</td>";
+  		html+="<td>작성자</td>";
+  		html+="<td>작성일</td>";
+  		html+="</tr>";
+  		//반복문
+  		$.each(data, (index, obj)=> {
+  			html+="<tr>";
+  			html+="<td>"+obj.idx+"</td>";
+  			html+="<td>"+obj.title+"</td>";
+  			html+="<td>"+obj.count+"</td>";
+  			html+="<td>"+obj.writer+"</td>";
+  			html+="<td>"+obj.indate+"</td>";
+  			html+="<td><button class='btn btn-warning btn-sm' onclick='delBtn("+obj.idx+")'>삭제(Ajax)</button></td>";
+  			html+="</tr>";
+		});
+  		
+  		html+="</table>";
+  		$("#list").html(html);
+	}
+  	function delBtn(idx) {
+  		if(confirm("삭제하시겠습니까?")==true){
+  		$.ajax({ 
+  			url : "${cpath}/boardDeleteAjax.do",
+  			type : "get",
+  			data : {"idx": idx},
+  			success : goJson,
+  		    error : function() {alert("error");}
+  		});
+  	 }else{
+  		return false;
+  	 }
+  	}
   </script>
   
 </head>
 <body>
- 
 <div class="container">
   <h2>Spring MVC BOARD</h2>
   <div class="panel panel-default">
@@ -38,13 +83,15 @@
       <tr>
           <td>${vo.idx}</td>
           <td><a href="${cpath}/boardContent.do?idx=${vo.idx}">${vo.title}</a></td>
-          <td>${vo.contents}</td>
+          <td>${vo.count}</td>
           <td>${vo.writer}</td>
           <td>${vo.indate}</td>
       </tr>
       </c:forEach>
   </table>
-  <button class="btn btn-info btn-sm" onclick="goWrite()">글쓰기</button>
+  <button class="btn btn-info btn-sm" onclick="goWrite()">글쓰기</button><br><br>
+  <button class="btn btn-success btn-sm" onclick="goJson()">JSON DATA 가져오기(Ajax)</button>
+  <div id="list">여기에 게시판 리스트를 출력하시오</div>
   </div>
   <div class="panel-footer">빅데이터분석 4차 (이준혁)</div>
   </div>

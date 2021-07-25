@@ -12,3 +12,4 @@ commit;
 select * from tbl_board;
 
 show databases;
+select * from tbl_board;
