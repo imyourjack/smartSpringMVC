@@ -6,8 +6,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.smhrd.domain.BoardVO;
@@ -23,7 +26,7 @@ public class BoardController{
 	private BoardMapper boardMapper;
 	// 게시판 리스트를 가져오는 동작
 	// HandlerMapping
-	@RequestMapping("/boardList.do")
+	@GetMapping("/boardList.do")
 	public void boardList(Model model) {
 		List<BoardVO> list= boardMapper.boardList();
 		model.addAttribute("list", list); //객체바인딩 -> Model
@@ -38,7 +41,7 @@ public class BoardController{
 	public void boardForm() { //요청 이름과 jsp 이름이 같을 경우 void로 가능
 		//return "boardForm"; //jsp로 갈 때는 그냥 boardForm
 	}
-	@RequestMapping("/boardInsert.do")
+	@PostMapping("/boardInsert.do")
 	public String boardInsert(BoardVO vo) {
 		boardMapper.boardInsert(vo);
 		return "redirect:/boardList.do"; //.do로 보낼 때는 redirect:/ 쓰기
@@ -54,12 +57,12 @@ public class BoardController{
 		boardMapper.boardDelete(idx);
 		return "redirect:/boardList.do";
 	}
-	@RequestMapping("/boardDeleteAjax.do")
-	public @ResponseBody int boardDeleteAjax(int idx) {
+	@RequestMapping("/boardDeleteAjax.do") // @RequestMapping : get, post 둘다 하려면
+	public @ResponseBody int boardDeleteAjax(@RequestParam("idx") int idx) {
 		int cnt = boardMapper.boardDeleteAjax(idx);
 		return cnt;
 	}
-	//GET, POST
+
 	@RequestMapping(value="/boardUpdate.do", method=RequestMethod.POST)
 	public String boardUpdate(BoardVO vo) {
 		boardMapper.boardUpdate(vo);
