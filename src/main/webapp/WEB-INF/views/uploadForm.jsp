@@ -14,6 +14,7 @@
 	<input type="text" name ="title">
 	<input type="file" name="uploadFile" multiple="multiple">
 	<button>파일업로드</button>
+	<button>깃허브 테스트</button>
 </form>
 
 </body>
