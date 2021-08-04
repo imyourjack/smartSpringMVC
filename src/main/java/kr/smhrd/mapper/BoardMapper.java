@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import kr.smhrd.domain.BoardVO;
+import kr.smhrd.domain.SearchVO;
 
 @Mapper
 public interface BoardMapper {
@@ -31,6 +32,6 @@ public interface BoardMapper {
 	@Update("update tbl_board set title = #{title}, contents = #{contents} where idx = #{idx}")
 	public void boardUpdate(BoardVO vo);
 	
-	
+	public List<BoardVO> boardSearch(SearchVO vo); // part=[title]
 	
 }

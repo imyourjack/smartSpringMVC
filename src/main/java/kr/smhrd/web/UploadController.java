@@ -79,7 +79,7 @@ public class UploadController {
 		return str.replace("-", "/");
 	}
 	@GetMapping(value="/download.do",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	@ResponseBody
+	//@ResponseBody //json으로 보낼 때 필요한 어노테이션
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent")String userAgent , String fileName) {
 		//System.out.println(fileName);
 		Resource resource = new FileSystemResource("C:\\upload\\"+fileName);

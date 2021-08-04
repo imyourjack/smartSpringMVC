@@ -16,5 +16,9 @@
      <delete id="boardDelete" parameterType="int">
          delete from tbl_board where idx=#{idx}
      </delete>
+     
+     <select id="boardSearch" resultType="boardVO" parameterType="searchVO"> <!-- searchVO s가 소문자인 이유 : config.xml 파일에 alias  -->
+         select * from tbl_board where ${part} like concat('%',#{keyword},'%')
+     </select>
     
 </mapper>

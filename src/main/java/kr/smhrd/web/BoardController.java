@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.smhrd.domain.BoardVO;
+import kr.smhrd.domain.SearchVO;
 import kr.smhrd.mapper.BoardMapper;
 
 //POJO
@@ -67,5 +68,11 @@ public class BoardController{
 	public String boardUpdate(BoardVO vo) {
 		boardMapper.boardUpdate(vo);
 		return "redirect:/boardList.do";
+	}
+	@RequestMapping("/boardSearch.do")
+	public String boardSearch(SearchVO vo, Model model) {
+		List<BoardVO> list = boardMapper.boardSearch(vo);
+		model.addAttribute("list", list);
+		return "boardList";
 	}
 }

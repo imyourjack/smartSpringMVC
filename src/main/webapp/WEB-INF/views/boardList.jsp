@@ -84,24 +84,43 @@
     <div class="panel-heading">BOARD LIST</div>
     <div class="panel-body">
       <table class="table">
-      <tr>
-          <td>번호</td>
-          <td>제목</td>
-          <td>조회수</td>
-          <td>작성자</td>
-          <td>작성일</td>
-      </tr>
-      <c:forEach var="vo" items="${list}">
-      <tr>
-          <td>${vo.idx}</td>
-          <td><a href="${cpath}/boardContent.do?idx=${vo.idx}">${vo.title}</a></td>
-          <td>${vo.count}</td>
-          <td>${vo.writer}</td>
-          <td>${vo.indate}</td>
-      </tr>
-      </c:forEach>
-  </table>
+	      <tr>
+	          <td>번호</td>
+	          <td>제목</td>
+	          <td>조회수</td>
+	          <td>작성자</td>
+	          <td>작성일</td>
+	      </tr>
+	      <c:forEach var="vo" items="${list}">
+	      <tr>
+	          <td>${vo.idx}</td>
+	          <td><a href="${cpath}/boardContent.do?idx=${vo.idx}">${vo.title}</a></td>
+	          <td>${vo.count}</td>
+	          <td>${vo.writer}</td>
+	          <td>${vo.indate}</td>
+	      </tr>
+	      </c:forEach>
+	  </table>
   <button class="btn btn-info btn-sm" onclick="goWrite()">글쓰기</button><br><br>
+  
+  <div>
+	<form action="${cpath}/boardSearch.do" method="post">
+		<table class="table">
+	       <tr>
+	         <td>
+	           <select name="part" class="form-control">
+	              <option value="title">제목</option>
+	              <option value="writer">작성자</option>
+	              <option value="contents">내용</option>
+	           </select>             
+	         </td>
+	         <td><input type="text" name="keyword" class="form-control"></td>
+	         <td><button type="submit" class="btn">검색</button></td>
+	       </tr>
+		</table>
+	</form>
+  </div>
+  
   <button class="btn btn-success btn-sm" onclick="goJson()">JSON DATA 가져오기(Ajax)</button>
   <div id="list">여기에 게시판 리스트를 출력하시오</div>
   </div>
